@@ -1,0 +1,83 @@
+{% extends 'imdb/base.html' %}
+
+{% block title %}IMDB{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <h3>All Movies</h3>
+    {% for m in all_movies %}
+        <div class="col-6">
+            <div class="row my-1">
+                <div class="col-2">
+                    <img src="{{ m.img.url }}" class="img-fluid">
+                </div>
+                <div class="col-6">
+                    <h5><a href="{{ m.get_absolute_url }}">{{ m }} ({{ m.year }})</a></h5>
+                </div>
+                <div class="col-2">
+                    <h2>{{ m.rating }}</h2>
+                </div>
+            </div>
+
+        </div>
+    {% endfor %}
+</div>
+<a href="{% url 'imdb:movie_list' %}">all movies list...</a>
+<hr>
+
+<div class="row">
+    <h3>Top Rated Movies</h3>
+    {% for m in best_movies %}
+        <div class="col-6">
+            <div class="row my-1">
+                <div class="col-2">
+                    <img src="{{ m.img.url }}" class="img-fluid">
+                </div>
+                <div class="col-6">
+                    <h5><a href="{{ m.get_absolute_url }}">{{ m }} ({{ m.year }})</a></h5>
+                </div>
+                <div class="col-2">
+                    <h2>{{ m.rating }}</h2>
+                </div>
+            </div>
+
+        </div>
+    {% endfor %}
+</div>
+<a href="{% url 'imdb:best_movie_list' %}">best movies list...</a>
+<hr>
+
+
+
+
+<div class="row">
+    <h3>Best Directors</h3>
+    {% for d in directors %}
+        <div class="col-6">
+            <div class="row my-1">
+                <div class="col-2">
+                    <img src="{{ d.img.url }}" class="img-fluid">
+                </div>
+                <div class="col-6">
+                    <h5><a href="{{ d.get_absolute_url }}">{{ d }}</a></h5>
+                </div>
+                <div class="col-2">
+                    <h2>{{ d.avg_rating }}</h2>
+                </div>
+            </div>
+
+        </div>
+    {% endfor %}
+</div>
+<a href="{% url 'imdb:director_list' %}">directors list...</a>
+<hr>
+<form action="#" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Add Comment"
+            class="btn btn-primary">
+        </form>
+
+
+{% endblock %}

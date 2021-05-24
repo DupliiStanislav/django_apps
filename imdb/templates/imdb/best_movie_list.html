@@ -1,0 +1,29 @@
+{% extends 'imdb/base.html' %}
+
+{% block title %}Best Movies{% endblock %}
+
+{% block content %}
+<div class="row">
+    <h3>Best Movies</h3>
+    {% for m in object_list %}
+        <div class="row my-2">
+                <div class="col-1">
+                    <img src="{{ m.img.url }}" class="img-fluid">
+                </div>
+                <div class="col-5">
+                    <h4><a href="{{ m.get_absolute_url }}">{{ m }} ({{ m.year }})</a></h4>
+                </div>
+                <div class="col-3">
+                    <h5><a href="{{ m.director.get_absolute_url }}">{{ m.director }}</a></h5>
+                </div>
+
+                <div class="col-2">
+                    <h2>{{ m.rating }}</h2>
+                </div>
+
+        </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

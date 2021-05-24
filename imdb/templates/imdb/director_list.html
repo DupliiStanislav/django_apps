@@ -1,0 +1,32 @@
+{% extends 'imdb/base.html' %}
+
+{% block title %}All Directors{% endblock %}
+
+{% block content %}
+<div class="row">
+    <h3>All Directors</h3>
+    {% for d in object_list %}
+    <div class="row my-2 py-1" style="background-color:#ccc">
+            <div class="col-1">
+                <img src="{{ d.img.url }}" class="img-fluid">
+            </div>
+            <div class="col-5">
+                <h4><a href="{{ d.get_absolute_url }}">{{ d }}</a></h4>
+            </div>
+            <div class="col-2">
+                <h2>{{ d.avg_rating }}</h2>
+            </div>
+
+            <div class="col-3">
+                <p>movies: {{ d.movies.all | length }}</p>
+                {% if d.best_movie %}
+                <p>best: <a href="{{ d.best_movie.get_absolute_url }}"> {{ d.best_movie }}</a></p>
+                {% endif %}
+            </div>
+
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'imdb/base.html' %}
+
+{% block title %}{{ movie }}}{% endblock %}
+
+{% block content %}
+
+<h1>{{ movie }} ({{ movie.year }})</h1>
+<h6><a href="{{ movie.director.get_absolute_url }}">
+    {{ movie.director }}</a></h6>
+<div class="row my-3">
+    <div class="col-3">
+        <img src="{{ movie.img.url }}"
+        class="img-fluid">
+    </div>
+    <div class="col-1">
+        <h6>rating:</h6>
+        <h1 class="text-success">{{ movie.rating }}</h1>
+    </div>
+    <div class="col-4">
+        {% if movie.plot %}
+        <h3 class="text-center">Plot:</h3>
+        <p style="text-align: justify;">
+            {{ movie.plot.read.decode }}</p>
+        {% endif %}
+    </div>
+    <div class="col-4">
+        {% if movie.comments.all %}
+        <h3 class="text-center">Comments:</h3>
+        <ul class="list-group">
+            {% for c in movie.comments.all %}
+            <li class="list-group-item">{{ c }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <h3 class="text-center">No comments yet:</h3>
+        {% endif %}
+        <hr>
+        <h3 class="text-center">Comment Form:</h3>
+        <form action="{% url 'imdb:movie_comment_create' movie.id %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Add Comment"
+            class="btn btn-primary">
+        </form>
+    </div>
+
+<div>
+    {{ form }}
+</div>
+
+</div>
+
+
+{% endblock %}

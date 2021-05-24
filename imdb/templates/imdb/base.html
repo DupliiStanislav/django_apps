@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'imdb/css/custom.css' %}"
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-between mt-3">
+        <div class="col-1">
+            <a href="{% url 'imdb:index' %}"><img src="{% static 'imdb/images/logo2.png' %}"
+            class="img-fluid"></a>
+        </div>
+        <div class="col-3">
+            <form method="post" action="{% url 'imdb:search' %}" class="d-flex">
+                {% csrf_token %}
+                <input name="search" type="text">
+                <input type="submit" value="search">
+            </form>
+
+
+    </div>
+    </div>
+    {% block content %}{% endblock %}
+    <a href="{% url 'imdb:config' %}">
+        <img src="{% static 'imdb/images/config.png' %}" width="40">
+    </a>
+
+</div>
+</body>
+</html>

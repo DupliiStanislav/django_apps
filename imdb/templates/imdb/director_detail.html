@@ -1,0 +1,46 @@
+{% extends 'imdb/base.html' %}
+
+{% block title %}{{ director }}}{% endblock %}
+
+{% block content %}
+<a href="{% url 'imdb:director_list' %}">directors list</a>
+<h1>{{ director }}</h1>
+<h6><a href="#">{{ movie.director }}</a></h6>
+<div class="row my-3">
+    <div class="col-3">
+        <img src="{{ director.img.url }}"
+        class="img-fluid">
+    </div>
+    <div class="col-1">
+        <h6>average rating:</h6>
+        <h1 class="text-success">{{ director.avg_rating }}</h1>
+    </div>
+    <div class="col-4">
+
+    </div>
+    <div class="col-4">
+        {% for m in director.movies.all %}
+        <div class="row my-2">
+            <div class="col-4">
+                <img src="{{ m.img.url }}" class="img-fluid">
+            </div>
+            <div class="col-8">
+                <h4><a href="{{ m.get_absolute_url }}">
+                    {{ m }} ({{ m.year }})
+                </a> </h4>
+            </div>
+        </div>
+        {% endfor %}
+        {% if director.best_movie %}
+        <hr>
+        <h4>best:</h4>
+        <h4><a href="{{ director.best_movie.get_absolute_url }}">{{ director.best_movie }}</a></h4>
+        {% endif %}
+    </div>
+
+
+
+</div>
+
+
+{% endblock %}

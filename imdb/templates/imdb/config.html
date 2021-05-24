@@ -1,0 +1,29 @@
+{% extends 'imdb/base.html' %}
+
+{% block title %}CONFIG{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-6">
+        <h3>New Director:</h3>
+        <form method="post" action="{% url 'imdb:add_new_director' %}"
+              enctype="multipart/form-data" class="modelform">
+            {% csrf_token %}
+            {{ director_model_form }}
+            <input type="submit" value="ADD">
+        </form>
+    </div>
+    <div class="col-6">
+        <h3>New Movie:</h3>
+        <form method="post" action="{% url 'imdb:add_new_movie' %}"
+              enctype="multipart/form-data" class="modelform">
+            {% csrf_token %}
+            {{ movie_model_form }}
+            <input type="submit" value="ADD">
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}
